@@ -10,13 +10,20 @@ void setup(void) {
 }
 
 void loop(void) {
-  float temperature = getTemp();
-  Serial.println(temperature);
+  float temperatureC = getTemp();
+  float temperatureF = convertC2F(temperatureC);
+  Serial.print(temperatureC);
+  Serial.print("C ");
+  Serial.print(temperatureF);
+  Serial.println("F");
   
-  delay(100); //just here to slow down the output so it is easier to read
+  delay(1000); //just here to slow down the output so it is easier to read
   
 }
 
+float convertC2F(float t) {
+     return  t * (9.0 / 5.0) + 32.0;
+}
 
 float getTemp(){
   //returns the temperature from one DS18S20 in DEG Celsius
@@ -60,9 +67,9 @@ float getTemp(){
 
   float tempRead = ((MSB << 8) | LSB); //using two's compliment
   float TemperatureSum = tempRead / 16;
-  
-  TemperatureSum = ((TemperatureSum * 9) / 5) + 32;
-  
+ 
+  //TemperatureSum = ((TemperatureSum * 9) / 5) + 32;
+
   return TemperatureSum;
   
 }
